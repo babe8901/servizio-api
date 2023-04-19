@@ -23,18 +23,32 @@ const getUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user });
 };
 
-const createUser = async (req, res) => {
+const createUsers = async (req, res) => {
   const user = await User.create(req.body);
   res.status(StatusCodes.CREATED).json({ user });
 };
 
 const updateUser = async (req, res) => {
-  const {
-    
-  }
-}
+  const id = req.params.id;
+  const user = await User.updateOne({ _id: id }, req.body);
+  res.status(StatusCodes.ACCEPTED).json({ msg: "successfully updated", user });
+};
+
+const deleteUser = async (req, res) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  res.status(StatusCodes.ACCEPTED).json({ user });
+};
+
+const deleteAllUsers = async (req, res) => {
+  const ack = await User.deleteMany({});
+  res.status(StatusCodes.OK).json({ ack });
+};
 
 module.exports = {
   getAllUsers,
   getUser,
+  createUsers,
+  deleteUser,
+  updateUser,
+  deleteAllUsers,
 };
