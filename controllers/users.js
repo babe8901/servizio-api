@@ -7,7 +7,6 @@ const {
 } = require("../errors");
 
 const getAllUsers = async (req, res) => {
-  // res.send("Users page");
   const users = await User.find({});
   res.status(StatusCodes.OK).json({ users });
 };
